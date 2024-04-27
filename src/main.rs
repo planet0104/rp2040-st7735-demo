@@ -68,7 +68,7 @@ fn main() -> ! {
     SDA <=> MOSI(GPIO7)
     RES <=> RST(GPIO14)
     DC  <=> DC(GPIO13)
-    CS  <=> 不连接
+    CS  <=> GND
     BLK <=> 不连接
      */
 
@@ -85,7 +85,7 @@ fn main() -> ! {
     let spi = spi.init(
         &mut pac.RESETS,
         clocks.peripheral_clock.freq(),
-        16_000_000u32.Hz(),
+        64_000_000u32.Hz(),
         &embedded_hal::spi::MODE_0,
     );
 
@@ -138,7 +138,7 @@ fn main() -> ! {
     image.draw(&mut disp).unwrap();
 
     // 10秒后重启到USB模式（方便下次cargo run）    
-    delay.delay_ms(30000);
+    delay.delay_ms(15000);
 
     reset_to_usb_boot(0, 0);
 
